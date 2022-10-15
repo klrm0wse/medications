@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/css/custom.css">
+
+<title>Medication names</title>
+
+
+</head>
+
+<body>
+
+<div class="container my-2 text-center" >
+
+	<div><h1>Generic and Brands</h1></div>
+	
+	
+	<div class="navbar">
+        <a href="/page">Home</a>        
+        <a href="/page1.html">Generic and Brands</a>
+        <a href="/page2.html">Generic and Brands w/ Drug Class</a>
+        <a href="/page3.html">Generic and Brands w/ Drug Class & Indication</a>
+    	<a href="/about">About</a>
+    	<a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>       
+	</div>
+	      
+
+        <table id="posts1" border="1" class="table table-striped table-responsive-md">
+            <thead>
+                <tr>                    
+                    <th>Generic</th>
+                    <th>Brands</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="genericAndBrand : ${posts1.page}">                                	                   
+                    <td th:text="${genericAndBrand.name}"></td>
+					<td th:switch="${genericAndBrand.brandList.size()}">
+						<span th:case="'1'" th:text="${genericAndBrand.brandList.get(0)}"></span>
+						<span th:case="'2'" th:text="${genericAndBrand.brandList.get(0) + ', ' + genericAndBrand.brandList.get(1)}"></span>
+						<span th:case="'3'" th:text="${genericAndBrand.brandList.get(0) + ', ' + genericAndBrand.brandList.get(1) + ', ' + genericAndBrand.brandList.get(2)}"></span>
+					</td>																																						
+                </tr>
+            </tbody>
+        </table>
+        
+           <nav aria-label="Page navigation" class="paging">
+                <ul class="pagination" th:if="${posts1.page.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!posts1.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/page1.html/?pageNumber=' + ${posts1.paging.pageNumber - 1}}"
+                           tabindex="-1">Previous</a>
+                    </li>
+                    <th:block th:each="item : ${posts1.paging.getItems()}">
+                        <li class="page-item" th:classappend="${item.index == posts1.paging.pageNumber? 'active' : ''}"
+                            th:if="${item.pageItemType.name() == 'PAGE'}">
+                            <a class="page-link" th:href="@{'/page1.html/?pageNumber=' + ${item.index}}"
+                               th:text="${item.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${!posts1.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/page1.html/?pageNumber=' + ${posts1.paging.pageNumber + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>                      
+        
+</div>    
+
+</body>
+</html>
