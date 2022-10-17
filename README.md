@@ -18,6 +18,7 @@ GitMind.com (for ER Diagram [in extras folder, under resources])
 Notepad++ v8.4 (for .sql file [in extras folder, under resources])
 Java 1.8+
 Eclipse IDE for Enterprise Java and Web Developers (v4.25)
+MariaDB/HeidiSQL (v10.8)
 Bootstrap 5 (CSS) [via cdn link]
 Spring Boot (V2.7.4)
 [Included dependencies via Spring Initializr (Java 8 Maven Project, jar/war packaging)]
